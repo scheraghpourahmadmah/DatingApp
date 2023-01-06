@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")] //Get /api/useers
-    public class UsersController : ControllerBase
+    
+    public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
 
