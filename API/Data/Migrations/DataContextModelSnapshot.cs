@@ -36,6 +36,7 @@ namespace API.Data.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

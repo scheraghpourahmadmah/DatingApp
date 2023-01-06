@@ -1,4 +1,5 @@
 using API.Data;
+using API.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +19,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 
 builder.Services.AddCors();
 
-
+builder.Services.AddScoped<ITokenService, ITokenService>();
 
 var app = builder.Build();
 
