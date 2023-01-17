@@ -4,17 +4,35 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using API.DTOs;
+using System.Linq;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace API.Data
 {
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public UserRepository(DataContext context)
+        public UserRepository(DataContext context, IMapper mapper)
         {
            _context = context;
+            _mapper = mapper;
         }
+
+        public async Task<MemberDto> GetMemberAsync(string username)
+        {
+            return await _context.Users.Where(X => X.UserName == username).
+                ProjectTo<MemberDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+        {
+            return await _context.Users.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
