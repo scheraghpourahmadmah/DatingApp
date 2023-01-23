@@ -47,7 +47,6 @@ export class MemberEditComponent implements OnInit {
         this.editForm?.reset(this.member);
       }
     })
-
   }
 
 }
